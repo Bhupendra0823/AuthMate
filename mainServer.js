@@ -40,7 +40,7 @@ mongoose
   .then(() => {
     console.log("connected to db");
     app.listen(process.env.PORT, () => {
-      console.log("Server is listening on port 7860");
+      // console.log("Server is listening on port 7860");
     }); 
   })
   .catch((err) => {

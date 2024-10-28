@@ -45,13 +45,11 @@ const authLoginControl = async (req, res) => {
 
 const authRegisterControl = async (req, res) => {
   const { name, userName, email, mobile, password, gender, dob } = req.body;
-
   try {
     // Check if the User collection exists
     const collections = await mongoose.connection.db
       .listCollections({ name: "users" })
       .toArray();
-
     if (collections.length === 0) {
       console.log(
         "Collection 'users' does not exist. Creating a new collection on the first entry."
@@ -71,7 +69,6 @@ const authRegisterControl = async (req, res) => {
     // Hash the password before saving it
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
     // Create new user instance with the hashed password and save it
     const newUser = new userSchema({
       name,
@@ -83,6 +80,7 @@ const authRegisterControl = async (req, res) => {
       dob,
     });
     await newUser.save();
+    console.log("t1");
     const sucessfullMsg = userName + " registered successfully";
     console.log("New user registered successfully");
     res.status(201).json({ msg: sucessfullMsg });

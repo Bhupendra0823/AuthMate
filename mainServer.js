@@ -4,7 +4,6 @@ const mongoose = require("mongoose");
 const app = express();
 const cors = require("cors");
 const session = require("express-session");
-
 const registerLoginRoute = require("./routes/registerLoginRoute");
 
 app.use(
@@ -38,11 +37,8 @@ app.use('/auth.mate',registerLoginRoute)
 mongoose
   .connect(process.env.MONGO_URI)
   .then(() => {
-    console.log("connected to db");
-    app.listen(process.env.PORT, () => {
-      console.log("Server is listening on port 7860");
-    }); 
+    console.log("connected to db"); 
   })
   .catch((err) => {
-    console.log(err);
+    console.log(err); 
   }); 

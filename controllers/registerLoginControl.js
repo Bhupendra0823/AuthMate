@@ -44,34 +44,40 @@ const authLoginControl = async (req, res) => {
 };
 
 const authRegisterControl = async (req, res) => {
+    console.log("t1");
   const { name, userName, email, mobile, password, gender, dob } = req.body;
-
+console.log("t1");
   try {
+    console.log("t2");
     // Check if the User collection exists
     const collections = await mongoose.connection.db
       .listCollections({ name: "users" })
       .toArray();
-
+console.log("t3");
     if (collections.length === 0) {
       console.log(
         "Collection 'users' does not exist. Creating a new collection on the first entry."
       );
+      console.log("t4");
     }
 
     // Check if a user with the same email or userId already exists
     const existingUser = await userSchema.findOne({
       $or: [{ email }, { userName }],
     });
+    console.log("t5");
     if (existingUser) {
+      console.log("t6");
       return res
         .status(400)
         .json({ msg: "User already exists with this email or userId." });
     }
+    console.log("t7");
 
     // Hash the password before saving it
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash(password, salt);
-
+console.log("t8");
     // Create new user instance with the hashed password and save it
     const newUser = new userSchema({
       name,
@@ -82,7 +88,9 @@ const authRegisterControl = async (req, res) => {
       gender,
       dob,
     });
+    console.log("t9");
     await newUser.save();
+    console.log("t10");
     const sucessfullMsg = userName + " registered successfully";
     console.log("New user registered successfully");
     res.status(201).json({ msg: sucessfullMsg });

@@ -44,7 +44,6 @@ const authLoginControl = async (req, res) => {
 };
 
 const authRegisterControl = async (req, res) => {
-    console.log("t1");
   const { name, userName, email, mobile, password, gender, dob } = req.body;
   try {
     // Check if the User collection exists
